@@ -49,6 +49,7 @@ function TicTacToeBlock(props) {
           return {
             ...prevStyles,
             backgroundColor: resultSymbol === "X" ? "#FFD7FA" : "#B0F6FF",
+            boxShadow: "0px 0px 0px grey",
           };
         });
         return resultSymbol;
@@ -57,6 +58,7 @@ function TicTacToeBlock(props) {
       ++round;
     }
   }
+  // JSX for UI
   return (
     <div onClick={handleClick} className="block" style={style}>
       {symbol}
