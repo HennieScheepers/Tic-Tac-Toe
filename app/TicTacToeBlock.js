@@ -24,16 +24,16 @@ function TicTacToeBlock(props) {
     if (!clicked) {
       setClicked(() => true);
 
-      // Update the symbol based on the round number
+      // Updates the symbol based on the round number
       setSymbol(() => {
         const resultSymbol = round % 2 === 0 ? "X" : "O";
-        // Update symbol
+        // Updates the gameTracker array
         setGameTracker((prevArray) =>
           prevArray.map((square, index) => {
             const newArr = [];
             if (square.id === props.id) {
               newArr[index] = square.symbol = resultSymbol;
-              // Check if anyone has won the game after move
+              // Checks if anyone has won the game after move
               if (checkGame(gameTracker) !== undefined) {
                 window.alert(checkGame(gameTracker));
               }
@@ -43,7 +43,8 @@ function TicTacToeBlock(props) {
             return newArr;
           })
         );
-        // Update the styles based on the symbol
+
+        // Updates the styles based on the symbol
         setStyle((prevStyles) => {
           return {
             ...prevStyles,
