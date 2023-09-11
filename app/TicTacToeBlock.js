@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
+import { blocks } from "./block";
+import checkGame from "./helpers";
 
 let round = 0;
-
 function TicTacToeBlock(props) {
   // Initialising game array
-  const gameArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  const [gameTracker, setGameTracker] = useState(gameArray);
+  const [gameTracker, setGameTracker] = useState(blocks);
 
   // Creating state to keep track of symbol
   const [symbol, setSymbol] = useState("");
@@ -27,15 +27,22 @@ function TicTacToeBlock(props) {
       // Update the symbol based on the round number
       setSymbol(() => {
         const resultSymbol = round % 2 === 0 ? "X" : "O";
-
-        // Updating the game tracker array
-        setGameTracker((prevGameTracker) => {
-          const newArray = [...prevGameTracker];
-          newArray[props.id - 1] = resultSymbol;
-          console.log(newArray);
-          return newArray;
-        });
-
+        // Update symbol
+        setGameTracker((prevArray) =>
+          prevArray.map((square, index) => {
+            const newArr = [];
+            if (square.id === props.id) {
+              newArr[index] = square.symbol = resultSymbol;
+              // Check if anyone has won the game after move
+              if (checkGame(gameTracker) !== undefined) {
+                window.alert(checkGame(gameTracker));
+              }
+            } else {
+              newArr[index] = square;
+            }
+            return newArr;
+          })
+        );
         // Update the styles based on the symbol
         setStyle((prevStyles) => {
           return {
@@ -48,7 +55,6 @@ function TicTacToeBlock(props) {
       // Increments round to keep track of the game
       ++round;
     }
-    console.log(gameTracker);
   }
   return (
     <div onClick={handleClick} className="block" style={style}>

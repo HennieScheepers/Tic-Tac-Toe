@@ -1,13 +1,18 @@
 "use client";
 import { useState } from "react";
-import TicTacToeBlock from "./TicTacToeBlock";
 import { blocks } from "./block";
+import TicTacToeBlock from "./TicTacToeBlock";
 
-function TicTacToe(props) {
-  const squares = blocks;
-  const squareElements = squares.map((square) => (
-    <TicTacToeBlock key={square.id} id={square.id} />
+function TicTacToe() {
+  const [squares, setSquares] = useState(blocks);
+  const squareElements = squares.map((block) => (
+    <TicTacToeBlock
+      key={block.id}
+      id={block.id}
+      symbol={block.symbol}
+    ></TicTacToeBlock>
   ));
+
   return <div className="block--container">{squareElements}</div>;
 }
 
